@@ -1,0 +1,339 @@
+/* Pantalla inicial */
+/* Pantalla inicial */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: black;
+  font-family: 'Courier New', monospace;
+  color: white;
+  overflow-x: hidden;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 48px;
+  text-align: center;
+}
+
+.typewriter {
+  border-right: 2px solid white; /* cursor */
+  white-space: nowrap;
+  overflow: hidden;
+  animation: blinkCursor 0.7s infinite;
+}
+
+@keyframes blinkCursor {
+  0% { border-color: transparent; }
+  50% { border-color: white; }
+  100% { border-color: transparent; }
+}
+
+
+
+
+
+/* SEGUNDA SECCIÓN: Estilos para cumplir los requisitos */
+
+.full-section {
+  display: none; /* Oculto por defecto hasta que JS lo muestre */
+  justify-content: center;
+  align-items: center; /* CLAVE: Centraliza vertical y horizontalmente */
+  background-color: lightblue; /* Color de fondo de la sección */
+  height: 100vh;        /* ✅ ocupa toda la pantalla */
+  padding: 60px;        /* ✅ márgenes internos (respetar espacio) */
+  gap: 40px;            /* espacio entre imagen y texto */
+}
+
+/* Contenedores de Imagen y Texto: Misma altura y sombra */
+.image-box, .text-box {
+  width: 100%;
+  max-width: 500px; /* Tamaño máximo del contenido */
+  height: 60%; /* CLAVE: Asegura la misma altura dentro de .full-section */
+  border-radius: 10px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.3); /* ✅ Sombra */
+  overflow: hidden;
+}
+
+/* Imagen */
+.image-box img {
+  width: 100%;
+  height: 100%; /* ✅ Ocupa el 100% del alto del contenedor */
+  object-fit: cover;
+  display: block;
+}
+
+/* Recuadro de texto */
+.text-box {
+  background-color: black; /* ✅ Recuadro blanco */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  padding: 30px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-color:black;
+}
+
+
+/* Animaciones SLIDE-IN */
+
+.slide-up-slow {
+  opacity: 0;
+  transform: translateY(100px);
+  animation: slideInUp 1s forwards;
+  animation-delay: 0.5s; /* ✅ Entra la foto primero */
+}
+
+.slide-up-fastt {
+  opacity: 0;
+  transform: translateY(100px);
+  animation: slideInRight 1s forwards;
+  animation-delay: 1.5s; /* ✅ Entra el recuadro de texto después */
+}
+
+@keyframes slideInUp {
+  to {
+    opacity: 1;
+    transform: translatey(0);
+  }
+}
+
+@keyframes slideInRight {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ESTILOS DE LA FLECHA */
+#next-button {
+    position: absolute;
+    bottom: 20px; 
+    font-size: 3em;
+    color: #333; /* Corregido: Color y ; */
+    cursor: pointer;
+    opacity: 0; 
+    transition: opacity 1s ease-in; 
+}
+
+/* Animación de rebote para la flecha */
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Clase que JS añade para iniciar la animación y el fade-in */
+.animated-arrow {
+    opacity: 1 !important;
+    animation: bounce 2s infinite;
+}
+
+/* TERCERA SECCIÓN (CARRUSEL) */
+#third-section {
+    opacity: 0; 
+    transition: opacity 1s ease-in; 
+    display: none; 
+}
+
+/* Clase que JS añade para iniciar el Fade-in */
+#third-section.visible {
+    opacity: 1;
+}
+
+.carousel-section {
+  background-color: black; 
+  flex-direction: column;
+  padding: 20px 0;
+  overflow: hidden; 
+}
+
+.carousel-section h2 {
+    color: white; /* Corregido: Color blanco para contraste en fondo negro */
+    margin-bottom: 30px;
+}
+
+.carousel-container-wrapper {
+  display: flex;
+  align-items: center;
+  width: 90%;
+  max-width: 1200px;
+  position: relative;
+  overflow: visible; 
+  padding: 0 50px; 
+}
+
+.carousel-container {
+  display: flex;
+  transition: transform 0.5s ease-in-out; 
+  width: 100%;
+  overflow: visible; 
+}
+
+
+/* ESTRUCTURA DEL FLIP Y HOVER DE TARJETA */
+
+.card-flip-container {
+    perspective: 1000px; 
+    min-width: 300px; 
+    margin: 0 15px; 
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: transform 0.3s; 
+    z-index: 1;
+    height: 300px; 
+}
+
+/* Efecto Hover base */
+.card-flip-container:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.card {
+    position: relative;
+    width: 100%;
+    height: 100%; 
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d; 
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    background-color: white;
+}
+
+/* Caras de la tarjeta */
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden; 
+    backface-visibility: hidden;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.card-front {
+    background-color: white;
+    transform: rotateY(0deg);
+}
+
+.card-back {
+    background-color: #ffd700; /* Color de fondo del mensaje */
+    color: #333;
+    transform: rotateY(180deg); 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    font-size: 1.1em;
+}
+
+.card img {
+  width: 100%;
+  height: 100%; /* CLAVE: Ocupa todo el alto (cara frontal: solo imagen) */
+  object-fit: cover;
+}
+
+/* Estilos de los botones de navegación (Next/Prev) */
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+    border-radius: 50%;
+    font-size: 1.5em;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.nav-btn.prev {
+    left: 0; 
+}
+
+.nav-btn.next {
+    right: 0; 
+}
+
+
+/* CLASES PARA EL ZOOM EXCLUSIVO (ZOOM-IT) */
+
+/* Fondo/Overlay que aparece al hacer zoom */
+#carousel-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9); /* Fondo oscuro */
+    z-index: 1000;
+    display: none; 
+    transition: opacity 0.5s ease-in-out;
+    opacity: 0;
+}
+#carousel-overlay.active {
+    display: block; 
+    opacity: 1;
+}
+
+/* Estilo para la tarjeta seleccionada (se aplica al .card-flip-container) */
+.card-flip-container.zoomed {
+    position: fixed; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(2.5); 
+    z-index: 1001; 
+    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); 
+    cursor: default;
+}
+
+/* Voltear la tarjeta al hacer zoom */
+.card-flip-container.zoomed .card {
+    transform: rotateY(180deg); 
+}
+
+/* Botón de volver (Back Button) */
+#back-button {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    background-color: white;
+    color: black;
+    border: none;
+    padding: 15px 25px;
+    border-radius: 50px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1002;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    display: none;
+    transition: opacity 0.3s;
+}
+
+/* Ocultar botones de carrusel y desactivar scroll cuando la tarjeta está en zoom */
+.carousel-section.zoomed-active .nav-btn,
+.carousel-section.zoomed-active .card-flip-container:not(.zoomed) {
+    pointer-events: none; 
+    opacity: 0; 
+    transition: opacity 0.3s;
+}
+
